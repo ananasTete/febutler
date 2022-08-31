@@ -1,7 +1,14 @@
-'use strict';
+"use strict";
 
-module.exports = cli;
+const log = require("@febutler/log");
+const pkg = require("../package.json");
 
-function cli() {
-    return "Hello from cli";
+function initCli() {
+  checkPkgVersion();
 }
+
+function checkPkgVersion() {
+  log.notice("version", pkg.version);
+}
+
+module.exports = initCli;
