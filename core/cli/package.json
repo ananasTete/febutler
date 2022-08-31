@@ -1,0 +1,23 @@
+{
+  "name": "@febutler/cli",
+  "version": "0.0.0",
+  "description": "> TODO: description",
+  "author": "李子航 <2045268468@qq.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "lib/cli.js",
+  "bin": {
+    "febutler": "./bin/index.js"
+  },
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "node ./__tests__/cli.test.js"
+  },
+  "dependencies": {}
+}
