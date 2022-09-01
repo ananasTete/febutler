@@ -20,8 +20,10 @@
     "test": "node ./__tests__/cli.test.js"
   },
   "dependencies": {
+    "@febutler/log": "file:../../utils/log",
+    "colors": "^1.4.0",
     "import-local": "^3.1.0",
     "npmlog": "^6.0.2",
-    "@febutler/log": "file:../../utils/log"
+    "semver": "^7.3.7"
   }
 }
