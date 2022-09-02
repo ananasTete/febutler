@@ -13,6 +13,8 @@ function initCli() {
     checkNodeVersion();
     checkRoot();
     checkUserHome();
+    checkInputArgs();
+    log.verbose("test", "--debug mode");
   } catch (error) {
     log.error(error);
   }
@@ -47,6 +49,18 @@ function checkUserHome() {
   if (!userHome || !pathExists(userHome)) {
     throw new Error("当前登录用户主目录不存在!".red);
   }
+}
+
+function checkInputArgs() {
+  var argv = require("minimist")(process.argv.slice(2));
+
+  // febutler --debug ==> args = [_: [], debug: true]
+
+  if (argv.debug) {
+    process.env.LOG_LEVEL = "verbose";
+  }
+
+  log.level = process.env.LOG_LEVEL;
 }
 
 module.exports = initCli;
