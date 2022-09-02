@@ -2,6 +2,7 @@
 
 const semver = require("semver");
 const colors = require("colors");
+const pathExists = require("path-exists").sync;
 const log = require("@febutler/log");
 const pkg = require("../package.json");
 const { LOWEST_NODE_VERSION } = require("./const");
@@ -11,6 +12,7 @@ function initCli() {
     checkPkgVersion();
     checkNodeVersion();
     checkRoot();
+    checkUserHome();
   } catch (error) {
     log.error(error);
   }
@@ -38,6 +40,13 @@ function checkNodeVersion() {
 function checkRoot() {
   const rootCheck = require("root-check");
   rootCheck();
+}
+
+function checkUserHome() {
+  const userHome = process.env.HOME || process.env.USERPROFILE;
+  if (!userHome || !pathExists(userHome)) {
+    throw new Error("当前登录用户主目录不存在!".red);
+  }
 }
 
 module.exports = initCli;
