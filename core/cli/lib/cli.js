@@ -10,6 +10,7 @@ function initCli() {
   try {
     checkPkgVersion();
     checkNodeVersion();
+    checkRoot();
   } catch (error) {
     log.error(error);
   }
@@ -32,6 +33,11 @@ function checkNodeVersion() {
 
   // 显示当前 node 版本
   log.notice("node", process.version);
+}
+
+function checkRoot() {
+  const rootCheck = require("root-check");
+  rootCheck();
 }
 
 module.exports = initCli;
