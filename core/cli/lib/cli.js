@@ -54,13 +54,12 @@ function checkUserHome() {
 function checkInputArgs() {
   var argv = require("minimist")(process.argv.slice(2));
 
-  // febutler --debug ==> args = [_: [], debug: true]
+  // febutler --debug ==> argv = { _: [], debug: true }
 
   if (argv.debug) {
     process.env.LOG_LEVEL = "verbose";
+    log.level = process.env.LOG_LEVEL;
   }
-
-  log.level = process.env.LOG_LEVEL;
 }
 
 module.exports = initCli;
