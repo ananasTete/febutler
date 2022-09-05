@@ -1,11 +1,14 @@
 "use strict";
 
+const path = require("path");
 const semver = require("semver");
 const colors = require("colors");
 const pathExists = require("path-exists").sync;
+
 const log = require("@febutler/log");
 const pkg = require("../package.json");
-const { LOWEST_NODE_VERSION } = require("./const");
+const { LOWEST_NODE_VERSION, DEFAULT_CLI_HOME } = require("./const");
+const userHome = process.env.HOME || process.env.USERPROFILE;
 
 function initCli() {
   try {
@@ -14,7 +17,7 @@ function initCli() {
     checkRoot();
     checkUserHome();
     checkInputArgs();
-    log.verbose("test", "--debug mode");
+    checkEnv();
   } catch (error) {
     log.error(error);
   }
@@ -45,10 +48,10 @@ function checkRoot() {
 }
 
 function checkUserHome() {
-  const userHome = process.env.HOME || process.env.USERPROFILE;
   if (!userHome || !pathExists(userHome)) {
     throw new Error("当前登录用户主目录不存在!".red);
   }
+  log.verbose("userHome", userHome);
 }
 
 function checkInputArgs() {
@@ -60,6 +63,23 @@ function checkInputArgs() {
     process.env.LOG_LEVEL = "verbose";
     log.level = process.env.LOG_LEVEL;
   }
+}
+
+function checkEnv() {
+  const { config } = require("dotenv");
+  const envPath = path.resolve(userHome, ".env");
+  if (pathExists(envPath)) {
+    config({ path: envPath });
+  }
+  createDefaultConfig();
+  log.verbose("env", pathExists(envPath), envPath, process.env.CLI_HOME);
+}
+
+function createDefaultConfig() {
+  if (process.env.CLI_HOME) {
+    process.env.CLI_HOME_PATH = path.join(userHome, process.env.CLI_HOME)
+  } else {
+    process.env.CLI_HOME_PATH = path.join(userHome, DEFAULT_CLI_HOME)
 }
 
 module.exports = initCli;
