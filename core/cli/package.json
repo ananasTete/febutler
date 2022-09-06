@@ -1,6 +1,6 @@
 {
   "name": "@febutler/cli",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "> TODO: description",
   "author": "李子航 <2045268468@qq.com>",
   "homepage": "",
@@ -23,8 +23,8 @@
     "access": "public"
   },
   "dependencies": {
-    "@febutler/get-npm-info": "^0.0.2",
-    "@febutler/log": "^0.0.2",
+    "@febutler/get-npm-info": "^0.0.3",
+    "@febutler/log": "^0.0.3",
     "colors": "^1.4.0",
     "dotenv": "^16.0.2",
     "import-local": "^3.1.0",
