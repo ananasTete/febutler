@@ -1,6 +1,6 @@
 {
   "name": "@febutler/cli",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "> TODO: description",
   "author": "李子航 <2045268468@qq.com>",
   "homepage": "",
@@ -20,8 +20,8 @@
     "test": "node ./__tests__/cli.test.js"
   },
   "dependencies": {
-    "@febutler/get-npm-info": "^0.0.1",
-    "@febutler/log": "^0.0.1",
+    "@febutler/get-npm-info": "^0.0.2",
+    "@febutler/log": "^0.0.2",
     "colors": "^1.4.0",
     "dotenv": "^16.0.2",
     "import-local": "^3.1.0",
