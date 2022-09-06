@@ -13,6 +13,9 @@
   "files": [
     "lib"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ananasTete/febutler.git"
@@ -28,5 +31,5 @@
     "semver": "^7.3.7",
     "url-join": "^4.0.1"
   },
-  "gitHead": "49e5cb8972fa45f103bcca5548baa063781313bc"
+  "gitHead": "71f5040c2aa4c4df995a463db6c8f8494014331a"
 }

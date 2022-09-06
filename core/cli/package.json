@@ -19,6 +19,9 @@
   "scripts": {
     "test": "node ./__tests__/cli.test.js"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
     "@febutler/get-npm-info": "^0.0.2",
     "@febutler/log": "^0.0.2",
@@ -31,5 +34,5 @@
     "root-check": "^1.0.0",
     "semver": "^7.3.7"
   },
-  "gitHead": "49e5cb8972fa45f103bcca5548baa063781313bc"
+  "gitHead": "71f5040c2aa4c4df995a463db6c8f8494014331a"
 }
