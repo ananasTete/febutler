@@ -20,8 +20,8 @@
     "test": "node ./__tests__/cli.test.js"
   },
   "dependencies": {
-    "@febutler/get-npm-info": "file:../../utils/get-npm-info",
-    "@febutler/log": "file:../../utils/log",
+    "@febutler/get-npm-info": "^0.0.1",
+    "@febutler/log": "^0.0.1",
     "colors": "^1.4.0",
     "dotenv": "^16.0.2",
     "import-local": "^3.1.0",
@@ -30,5 +30,6 @@
     "path-exists": "^4.0.0",
     "root-check": "^1.0.0",
     "semver": "^7.3.7"
-  }
+  },
+  "gitHead": "49e5cb8972fa45f103bcca5548baa063781313bc"
 }
