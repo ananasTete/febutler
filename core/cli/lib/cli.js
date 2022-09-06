@@ -6,11 +6,12 @@ const colors = require("colors");
 const pathExists = require("path-exists").sync;
 
 const log = require("@febutler/log");
+const { getLastVersion } = require("@febutler/get-npm-info");
 const pkg = require("../package.json");
 const { LOWEST_NODE_VERSION, DEFAULT_CLI_HOME } = require("./const");
 const userHome = process.env.HOME || process.env.USERPROFILE;
 
-function initCli() {
+async function initCli() {
   try {
     checkPkgVersion();
     checkNodeVersion();
@@ -18,6 +19,7 @@ function initCli() {
     checkUserHome();
     checkInputArgs();
     checkEnv();
+    await checkGlobalUpdate();
   } catch (error) {
     log.error(error);
   }
@@ -77,9 +79,27 @@ function checkEnv() {
 
 function createDefaultConfig() {
   if (process.env.CLI_HOME) {
-    process.env.CLI_HOME_PATH = path.join(userHome, process.env.CLI_HOME)
+    process.env.CLI_HOME_PATH = path.join(userHome, process.env.CLI_HOME);
   } else {
-    process.env.CLI_HOME_PATH = path.join(userHome, DEFAULT_CLI_HOME)
+    process.env.CLI_HOME_PATH = path.join(userHome, DEFAULT_CLI_HOME);
+  }
+}
+
+async function checkGlobalUpdate() {
+  // 1. 获取当前版本号和模块名
+  const currentVersion = pkg.version;
+  const npmName = pkg.name;
+
+  // 2. 获取最新的版本号
+  const lastVersion = await getLastVersion("@febutler/cli");
+
+  // 3. 做对比，如果当前版本不是最新版本则提示更新
+  if (lastVersion && semver.gt(lastVersion, currentVersion)) {
+    log.warn(
+      `发现新的版本！当前版本 ${currentVersion}， 最新版本 ${lastVersion}`
+        .yellow
+    );
+  }
 }
 
 module.exports = initCli;
