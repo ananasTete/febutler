@@ -4,12 +4,16 @@ const path = require("path");
 const semver = require("semver");
 const colors = require("colors");
 const pathExists = require("path-exists").sync;
+const commander = require("commander");
 
 const log = require("@febutler/log");
 const { getLastVersion } = require("@febutler/get-npm-info");
+const init = require("@febutler/init");
 const pkg = require("../package.json");
 const { LOWEST_NODE_VERSION, DEFAULT_CLI_HOME } = require("./const");
 const userHome = process.env.HOME || process.env.USERPROFILE;
+
+const program = new commander.Command();
 
 async function initCli() {
   try {
@@ -17,9 +21,10 @@ async function initCli() {
     checkNodeVersion();
     checkRoot();
     checkUserHome();
-    checkInputArgs();
+    // checkInputArgs();
     checkEnv();
     await checkGlobalUpdate();
+    registryCommands();
   } catch (error) {
     log.error(error);
   }
@@ -100,6 +105,46 @@ async function checkGlobalUpdate() {
         .yellow
     );
   }
+}
+
+function registryCommands() {
+  program
+    .name(Object.keys(pkg.bin)[0])
+    .version(pkg.version)
+    .option("-d, --debug", "is open debug mode ?", false)
+    .option(
+      "-tp, --targetPath [targetPath]",
+      "Specify the local debug file path",
+      ""
+    );
+
+  program
+    .command("init <projectName>")
+    .description("init the project named <projectName>")
+    .option(
+      "-f, --force",
+      "Force initialization even if a directory named <projectName> exists"
+    )
+    .action(init);
+
+  program.on("option:debug", function () {
+    console.log(`**  Starting in Debug Mode  **`.green);
+    if (this.opts().debug) {
+      process.env.LOG_LEVEL = "verbose";
+    }
+  });
+
+  // 定义未注册命令的处理
+  program.on("command:*", function (args) {
+    console.log(`unknown command: ${args[0]}`.red);
+    console.log();
+    this.outputHelp();
+  });
+
+  // 不输入任何命令或选项时，显示帮助信息
+  if (process.argv.length < 3) program.help();
+
+  program.parse(process.argv);
 }
 
 module.exports = initCli;
