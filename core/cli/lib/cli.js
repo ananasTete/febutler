@@ -9,6 +9,8 @@ const commander = require("commander");
 const log = require("@febutler/log");
 const { getLastVersion } = require("@febutler/get-npm-info");
 const init = require("@febutler/init");
+const exec = require("@febutler/exec");
+
 const pkg = require("../package.json");
 const { LOWEST_NODE_VERSION, DEFAULT_CLI_HOME } = require("./const");
 const userHome = process.env.HOME || process.env.USERPROFILE;
@@ -17,17 +19,21 @@ const program = new commander.Command();
 
 async function initCli() {
   try {
-    checkPkgVersion();
-    checkNodeVersion();
-    checkRoot();
-    checkUserHome();
-    // checkInputArgs();
-    checkEnv();
-    await checkGlobalUpdate();
+    console.log(exec());
+    await prepare();
     registryCommands();
   } catch (error) {
     log.error(error);
   }
+}
+
+async function prepare() {
+  checkPkgVersion();
+  checkNodeVersion();
+  checkRoot();
+  checkUserHome();
+  checkEnv();
+  await checkGlobalUpdate();
 }
 
 function checkPkgVersion() {
@@ -58,18 +64,7 @@ function checkUserHome() {
   if (!userHome || !pathExists(userHome)) {
     throw new Error("当前登录用户主目录不存在!".red);
   }
-  log.verbose("userHome", userHome);
-}
-
-function checkInputArgs() {
-  var argv = require("minimist")(process.argv.slice(2));
-
-  // febutler --debug ==> argv = { _: [], debug: true }
-
-  if (argv.debug) {
-    process.env.LOG_LEVEL = "verbose";
-    log.level = process.env.LOG_LEVEL;
-  }
+  log.notice("userHome", userHome);
 }
 
 function checkEnv() {
@@ -79,7 +74,6 @@ function checkEnv() {
     config({ path: envPath });
   }
   createDefaultConfig();
-  log.verbose("env", pathExists(envPath), envPath, process.env.CLI_HOME);
 }
 
 function createDefaultConfig() {
@@ -128,10 +122,16 @@ function registryCommands() {
     .action(init);
 
   program.on("option:debug", function () {
-    console.log(`**  Starting in Debug Mode  **`.green);
+    console.log("--------------------------------".green);
+    console.log(`**   Starting in Debug Mode   **`.green);
+    console.log("--------------------------------".green);
     if (this.opts().debug) {
       process.env.LOG_LEVEL = "verbose";
     }
+  });
+
+  program.on("option:targetPath", function () {
+    process.env.CLI_TARGET_PATH = this.opts().targetPath;
   });
 
   // 定义未注册命令的处理
