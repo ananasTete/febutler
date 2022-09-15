@@ -19,9 +19,9 @@ const program = new commander.Command();
 
 async function initCli() {
   try {
-    console.log(exec());
     await prepare();
     registryCommands();
+    exec();
   } catch (error) {
     log.error(error);
   }
@@ -125,9 +125,8 @@ function registryCommands() {
     console.log("--------------------------------".green);
     console.log(`**   Starting in Debug Mode   **`.green);
     console.log("--------------------------------".green);
-    if (this.opts().debug) {
-      process.env.LOG_LEVEL = "verbose";
-    }
+    process.env.LOG_LEVEL = "verbose";
+    log.level = "verbose";
   });
 
   program.on("option:targetPath", function () {
