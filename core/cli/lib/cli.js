@@ -21,6 +21,7 @@ async function initCli() {
   try {
     await prepare();
     registryCommands();
+    exec();
   } catch (error) {
     log.error(error);
   }
