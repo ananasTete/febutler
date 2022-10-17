@@ -1,11 +1,11 @@
 {
-  "name": "@febutler/exec",
+  "name": "@febutler/package",
   "version": "0.0.3",
   "description": "> TODO: description",
   "author": "李子航 <2045268468@qq.com>",
   "homepage": "https://github.com/ananasTete/febutler#readme",
   "license": "ISC",
-  "main": "lib/exec.js",
+  "main": "lib/package.js",
   "directories": {
     "lib": "lib",
     "test": "__tests__"
@@ -22,11 +22,16 @@
     "url": "git+https://github.com/ananasTete/febutler.git"
   },
   "scripts": {
-    "test": "node ./__tests__/@febutler/exec.test.js"
+    "test": "node ./__tests__/@febutler/package.test.js"
   },
   "dependencies": {
-    "@febutler/package": "file:../../models/package",
-    "@febutler/log": "file:../../utils/log"
+    "@febutler/format-path": "file:../../utils/format-path",
+    "@febutler/get-npm-info": "file:../../utils/get-npm-info",
+    "@febutler/utils": "file:../../utils/utils",
+    "fs-extra": "^10.1.0",
+    "npminstall": "^4.11.0",
+    "path-exists": "^4.0.0",
+    "pkg-dir": "^5.0.0"
   },
   "bugs": {
     "url": "https://github.com/ananasTete/febutler/issues"

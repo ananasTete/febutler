@@ -7,7 +7,7 @@ const pathExists = require("path-exists").sync;
 const commander = require("commander");
 
 const log = require("@febutler/log");
-const { getLastVersion } = require("@febutler/get-npm-info");
+const { getLatestVersion } = require("@febutler/get-npm-info");
 const init = require("@febutler/init");
 const exec = require("@febutler/exec");
 
@@ -19,7 +19,6 @@ const program = new commander.Command();
 
 async function initCli() {
   try {
-    console.log(exec());
     await prepare();
     registryCommands();
   } catch (error) {
@@ -90,7 +89,7 @@ async function checkGlobalUpdate() {
   const npmName = pkg.name;
 
   // 2. 获取最新的版本号
-  const lastVersion = await getLastVersion("@febutler/cli");
+  const lastVersion = await getLatestVersion("@febutler/cli");
 
   // 3. 做对比，如果当前版本不是最新版本则提示更新
   if (lastVersion && semver.gt(lastVersion, currentVersion)) {
@@ -119,7 +118,7 @@ function registryCommands() {
       "-f, --force",
       "Force initialization even if a directory named <projectName> exists"
     )
-    .action(init);
+    .action(exec);
 
   program.on("option:debug", function () {
     console.log("--------------------------------".green);
@@ -127,6 +126,7 @@ function registryCommands() {
     console.log("--------------------------------".green);
     if (this.opts().debug) {
       process.env.LOG_LEVEL = "verbose";
+      log.level = "verbose";
     }
   });
 

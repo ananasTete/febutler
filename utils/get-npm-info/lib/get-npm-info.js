@@ -42,10 +42,11 @@ async function getNpmVersions(npmName, registry) {
 }
 
 // 获取指定包的最新版本
-async function getLastVersion(npmName, registry) {
+async function getLatestVersion(npmName, registry) {
   const versions = await getNpmVersions(npmName, registry);
+  if (!versions) return null;
   versions.sort((a, b) => semver.gt(b, a));
   return versions[0];
 }
 
-module.exports = { getNpmInfo, getNpmVersions, getLastVersion };
+module.exports = { getNpmInfo, getNpmVersions, getLatestVersion };

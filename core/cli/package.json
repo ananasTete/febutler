@@ -23,7 +23,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@febutler/get-npm-info": "^0.0.3",
+    "@febutler/get-npm-info": "file:../../utils/get-npm-info",
     "@febutler/init": "file:../../commands/init",
     "@febutler/exec": "file:../exec",
     "@febutler/log": "^0.0.3",
