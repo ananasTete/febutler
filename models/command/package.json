@@ -1,6 +1,6 @@
 {
   "name": "@febutler/command",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "> TODO: description",
   "author": "李子航 <2045268468@qq.com>",
   "homepage": "https://github.com/ananasTete/febutler#readme",
@@ -27,9 +27,9 @@
     "url": "https://github.com/ananasTete/febutler/issues"
   },
   "dependencies": {
-    "colors": "^1.4.0",
-    "semver": "^7.3.8",
     "@febutler/log": "../../utils/log",
-    "@febutler/utils": "../../utils/utils"
+    "@febutler/utils": "../../utils/utils",
+    "colors": "^1.4.0",
+    "semver": "^7.3.8"
   }
 }
