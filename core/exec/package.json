@@ -25,10 +25,11 @@
     "test": "node ./__tests__/@febutler/exec.test.js"
   },
   "dependencies": {
-    "@febutler/log": "file:../../utils/log",
-    "@febutler/package": "file:../../models/package"
+    "@febutler/log": "^0.0.5",
+    "@febutler/package": "^0.0.5"
   },
   "bugs": {
     "url": "https://github.com/ananasTete/febutler/issues"
-  }
+  },
+  "gitHead": "8a06b5ee1f751f70dcd0608b893049a613d3feda"
 }

@@ -27,9 +27,10 @@
     "url": "https://github.com/ananasTete/febutler/issues"
   },
   "dependencies": {
-    "@febutler/log": "../../utils/log",
-    "@febutler/utils": "../../utils/utils",
+    "@febutler/log": "^0.0.5",
+    "@febutler/utils": "^0.0.5",
     "colors": "^1.4.0",
     "semver": "^7.3.8"
-  }
+  },
+  "gitHead": "8a06b5ee1f751f70dcd0608b893049a613d3feda"
 }

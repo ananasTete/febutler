@@ -23,9 +23,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@febutler/exec": "file:../exec",
-    "@febutler/get-npm-info": "file:../../utils/get-npm-info",
-    "@febutler/init": "file:../../commands/init",
+    "@febutler/exec": "^0.0.5",
+    "@febutler/get-npm-info": "^0.0.5",
+    "@febutler/init": "^0.0.5",
     "@febutler/log": "^0.0.5",
     "colors": "^1.4.0",
     "commander": "^9.4.0",
@@ -36,5 +36,5 @@
     "root-check": "^1.0.0",
     "semver": "^7.3.7"
   },
-  "gitHead": "71f5040c2aa4c4df995a463db6c8f8494014331a"
+  "gitHead": "8a06b5ee1f751f70dcd0608b893049a613d3feda"
 }
