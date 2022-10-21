@@ -38,7 +38,9 @@ class Package {
       fsExtra.mkdirpSync(this.storeDir);
     }
     if (this.packageVersion === "latest") {
-      this.packageVersion = await getLatestVersion(this.packageName);
+      this.packageVersion = await getLatestVersion(this.packageName).catch(
+        (err) => console.log(err)
+      );
     }
   }
 
@@ -80,9 +82,12 @@ class Package {
 
   // 更新 package
   async update() {
-    await this.prepare();
-    const latestVersion = await getLatestVersion(this.packageName);
+    await this.prepare().catch((err) => console.log(err));
+    const latestVersion = await getLatestVersion(this.packageName).catch(
+      (err) => console.log(err)
+    );
     const latestVersionFilePath = this.getSpecificFilePath(latestVersion);
+
     if (!pathExists(latestVersionFilePath)) {
       await npmInstall({
         root: this.targetPath,

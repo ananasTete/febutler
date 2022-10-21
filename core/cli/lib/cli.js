@@ -12,7 +12,7 @@ const init = require("@febutler/init");
 const exec = require("@febutler/exec");
 
 const pkg = require("../package.json");
-const { LOWEST_NODE_VERSION, DEFAULT_CLI_HOME } = require("./const");
+const { DEFAULT_CLI_HOME } = require("./const");
 const userHome = process.env.HOME || process.env.USERPROFILE;
 
 const program = new commander.Command();
@@ -21,15 +21,14 @@ async function initCli() {
   try {
     await prepare();
     registryCommands();
-    exec();
   } catch (error) {
-    log.error(error);
+    console.log(error);
+    log.error("initCli " + error);
   }
 }
 
 async function prepare() {
   checkPkgVersion();
-  checkNodeVersion();
   checkRoot();
   checkUserHome();
   checkEnv();
@@ -38,21 +37,6 @@ async function prepare() {
 
 function checkPkgVersion() {
   log.notice("version", pkg.version);
-}
-
-function checkNodeVersion() {
-  // 获取当前 node 版本号
-  const currentVersion = process.version;
-
-  // 与自定义的最低版本号对比，gte方法：当参数1 > 参数2时返回 true。
-  if (!semver.gte(currentVersion, LOWEST_NODE_VERSION)) {
-    throw new Error(
-      `您的 Node.js 版本不满足 febutler 运行所需的最低版本，请安装 v${currentVersion} 以上版本的 Node.js`.red
-    );
-  }
-
-  // 显示当前 node 版本
-  log.notice("node", process.version);
 }
 
 function checkRoot() {
@@ -90,7 +74,7 @@ async function checkGlobalUpdate() {
   const npmName = pkg.name;
 
   // 2. 获取最新的版本号
-  const lastVersion = await getLatestVersion("@febutler/cli");
+  const lastVersion = await getLatestVersion(npmName);
 
   // 3. 做对比，如果当前版本不是最新版本则提示更新
   if (lastVersion && semver.gt(lastVersion, currentVersion)) {
@@ -125,10 +109,8 @@ function registryCommands() {
     console.log("--------------------------------".green);
     console.log(`**   Starting in Debug Mode   **`.green);
     console.log("--------------------------------".green);
-    if (this.opts().debug) {
-      process.env.LOG_LEVEL = "verbose";
-      log.level = "verbose";
-    }
+    process.env.LOG_LEVEL = "verbose";
+    log.level = "verbose";
   });
 
   program.on("option:targetPath", function () {
@@ -138,7 +120,6 @@ function registryCommands() {
   // 定义未注册命令的处理
   program.on("command:*", function (args) {
     console.log(`unknown command: ${args[0]}`.red);
-    console.log();
     this.outputHelp();
   });
 

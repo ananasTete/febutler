@@ -25,5 +25,9 @@
   },
   "bugs": {
     "url": "https://github.com/ananasTete/febutler/issues"
+  },
+  "dependencies": {
+    "@febutler/command": "file:../../models/command",
+    "@febutler/log": "file:../../utils/log"
   }
 }
