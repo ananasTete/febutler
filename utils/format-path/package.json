@@ -1,6 +1,6 @@
 {
   "name": "@febutler/format-path",
-  "version": "0.0.5",
+  "version": "0.0.7",
   "description": "> TODO: description",
   "author": "李子航 <2045268468@qq.com>",
   "homepage": "https://github.com/ananasTete/febutler#readme",
@@ -14,7 +14,7 @@
     "lib"
   ],
   "publishConfig": {
-    "registry": "https://registry.npm.taobao.org"
+    "access": "public"
   },
   "repository": {
     "type": "git",
