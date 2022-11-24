@@ -3,9 +3,9 @@
 const path = require("path");
 const Package = require("@febutler/package");
 const log = require("@febutler/log");
-const { spawn: cpSpawn } = require("child_process");
 const SETTINGS = require("./const");
 const { on } = require("events");
+const { spawnExec } = require("@febutler/utils");
 
 async function exec() {
   const homePath = process.env.CLI_HOME_PATH;
@@ -16,7 +16,7 @@ async function exec() {
   // 获取当前命令的名称，如执行 febutler init xxx 时，调用 name() 方法返回 init
   const cmdName = this.name();
   const packageName = SETTINGS[cmdName];
-  const packageVersion = "0.22.0"; // 如何指定版本？？
+  const packageVersion = "0.0.6"; // 如何指定版本？？
 
   if (!targetPath) {
     // 生成缓存路径
@@ -39,6 +39,7 @@ async function exec() {
 
     if (await pkg.exists()) {
       // 更新 package
+      console.log("更新");
       await pkg.update();
     } else {
       // 安装 package
@@ -51,6 +52,8 @@ async function exec() {
       packageVersion,
     });
   }
+
+  throw new Error("结束");
 
   const rootFilePath = pkg.getRootFilePath();
   if (rootFilePath) {
@@ -94,7 +97,7 @@ async function exec() {
       // 如果不从 args 中去除命令对象，也可以进入到目标文件中执行，但终端会显示系统找不到指定文件，也不会执行其导出的方法
 
       const code = `require('${result}').call(null, ${JSON.stringify(args)})`;
-      const child = spawn("node", ["-e", code], {
+      const child = spawnExec("node", ["-e", code], {
         cwd: process.cwd(),
         stdio: "inherit",
       });
@@ -109,20 +112,6 @@ async function exec() {
       log.error(error);
     }
   }
-}
-
-// 封装方法处理windows和macos与linux之间使用 spawn 执行 node模块上的差别
-function spawn(command, args, options) {
-  const win32 = process.platform === "win32";
-
-  const cmd = win32 ? "cmd" : command;
-  const cmdArgs = win32 ? ["/c"].concat(command, args) : args;
-
-  console.log(cmd, cmdArgs, options);
-
-  // windows: spawn('cmd', ['/c', 'node', '-e', code], options])
-  // macos/linux: spawn('node', ['-e', code], options])
-  return cpSpawn(cmd, cmdArgs, options || {});
 }
 
 module.exports = exec;

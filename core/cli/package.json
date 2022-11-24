@@ -7,7 +7,7 @@
   "license": "ISC",
   "main": "lib/cli.js",
   "bin": {
-    "febutler": "./bin/index.js"
+    "fe": "./bin/index.js"
   },
   "directories": {
     "lib": "lib",
@@ -23,10 +23,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@febutler/exec": "^0.0.5",
-    "@febutler/get-npm-info": "^0.0.5",
-    "@febutler/init": "^0.0.5",
-    "@febutler/log": "^0.0.5",
+    "@febutler/exec": "file:../exec",
+    "@febutler/get-npm-info": "file:../../utils/get-npm-info",
+    "@febutler/log": "file:../../utils/log",
     "colors": "^1.4.0",
     "commander": "^9.4.0",
     "dotenv": "^16.0.2",

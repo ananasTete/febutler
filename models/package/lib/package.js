@@ -89,12 +89,18 @@ class Package {
     const latestVersionFilePath = this.getSpecificFilePath(latestVersion);
 
     if (!pathExists(latestVersionFilePath)) {
+      console.log("只有旧版本");
+      // 只有旧版本
       await npmInstall({
         root: this.targetPath,
         registry: "https://registry.npmmirror.com/",
         storeDir: this.storeDir,
         pkgs: [{ name: this.packageName, version: latestVersion }],
       });
+      this.packageVersion = latestVersion;
+      console.log(this.packageVersion, this.cacheFilePath);
+    } else {
+      // 旧版本和最新版本同时存在
       this.packageVersion = latestVersion;
     }
   }

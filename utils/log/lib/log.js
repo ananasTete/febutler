@@ -2,7 +2,7 @@
 
 const npmlog = require("npmlog");
 
-npmlog.addLevel("sucess", 2000, { fg: "green", bg: "yellow", bold: true });
+npmlog.addLevel("success", 2000, { fg: "green", bold: true });
 
 npmlog.heading = "febutler";
 npmlog.headingStyle = { fg: "cyan" };

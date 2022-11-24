@@ -1,5 +1,5 @@
 const SETTINGS = {
-  init: "axios",
+  init: "@febutler/init",
 };
 
 module.exports = SETTINGS;

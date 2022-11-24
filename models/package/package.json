@@ -24,9 +24,9 @@
     "test": "node ./__tests__/@febutler/package.test.js"
   },
   "dependencies": {
-    "@febutler/format-path": "^0.0.5",
-    "@febutler/get-npm-info": "^0.0.5",
-    "@febutler/utils": "^0.0.5",
+    "@febutler/format-path": "file:../../utils/format-path",
+    "@febutler/get-npm-info": "file:../../utils/get-npm-info",
+    "@febutler/utils": "file:../../utils/utils",
     "fs-extra": "^10.1.0",
     "npminstall": "^4.11.0",
     "path-exists": "^4.0.0",

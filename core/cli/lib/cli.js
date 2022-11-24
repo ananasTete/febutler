@@ -8,7 +8,6 @@ const commander = require("commander");
 
 const log = require("@febutler/log");
 const { getLatestVersion } = require("@febutler/get-npm-info");
-const init = require("@febutler/init");
 const exec = require("@febutler/exec");
 
 const pkg = require("../package.json");
@@ -103,6 +102,9 @@ function registryCommands() {
       "-f, --force",
       "Force initialization even if a directory named <projectName> exists"
     )
+    .hook("preAction", (thisCommand, actionCommand) => {
+      // 校验项目名称命名是否符合规范
+    })
     .action(exec);
 
   program.on("option:debug", function () {

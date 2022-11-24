@@ -8,6 +8,10 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": ">= 16.15.0 <17",
+    "npm": "^7.24.2"
+  },
   "workspaces": [
     "commands/*",
     "core/*",
