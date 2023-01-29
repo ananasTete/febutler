@@ -24,7 +24,7 @@ function getNpmInfo(npmName, registry) {
     });
 }
 
-function getDefaultRegistry(isOriginal = false) {
+function getDefaultRegistry(isOriginal = true) {
   // 原生 npm API 地址和对应的淘宝源的地址
   return isOriginal
     ? "https://registry.npmjs.org/"
@@ -45,7 +45,9 @@ async function getNpmVersions(npmName, registry) {
 async function getLatestVersion(npmName, registry) {
   const versions = await getNpmVersions(npmName, registry);
   if (!versions) return null;
-  versions.sort((a, b) => semver.gt(b, a));
+  versions.sort((a, b) => {
+    return semver.lt(a, b) ? 1 : -1;
+  });
   return versions[0];
 }
 

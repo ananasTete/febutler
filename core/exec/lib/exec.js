@@ -16,7 +16,7 @@ async function exec() {
   // 获取当前命令的名称，如执行 febutler init xxx 时，调用 name() 方法返回 init
   const cmdName = this.name();
   const packageName = SETTINGS[cmdName];
-  const packageVersion = "0.0.6"; // 如何指定版本？？
+  const packageVersion = "0.22.0"; // 如何指定版本？？
 
   if (!targetPath) {
     // 生成缓存路径
@@ -39,7 +39,6 @@ async function exec() {
 
     if (await pkg.exists()) {
       // 更新 package
-      console.log("更新");
       await pkg.update();
     } else {
       // 安装 package
@@ -52,8 +51,6 @@ async function exec() {
       packageVersion,
     });
   }
-
-  throw new Error("结束");
 
   const rootFilePath = pkg.getRootFilePath();
   if (rootFilePath) {

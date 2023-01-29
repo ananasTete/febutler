@@ -74,11 +74,12 @@ class Package {
     await this.prepare();
     return npmInstall({
       root: this.targetPath,
-      registry: "https://registry.npmmirror.com/",
+      registry: "https://registry.npmjs.org/",
       storeDir: this.storeDir,
       pkgs: [{ name: this.packageName, version: this.packageVersion }],
     });
   }
+  // 安装的不是最新的版本而是mongo中存储的版本
 
   // 更新 package
   async update() {
@@ -89,7 +90,6 @@ class Package {
     const latestVersionFilePath = this.getSpecificFilePath(latestVersion);
 
     if (!pathExists(latestVersionFilePath)) {
-      console.log("只有旧版本");
       // 只有旧版本
       await npmInstall({
         root: this.targetPath,
@@ -98,11 +98,12 @@ class Package {
         pkgs: [{ name: this.packageName, version: latestVersion }],
       });
       this.packageVersion = latestVersion;
-      console.log(this.packageVersion, this.cacheFilePath);
     } else {
       // 旧版本和最新版本同时存在
       this.packageVersion = latestVersion;
     }
+    // 当旧版本存在安装新版本后能不能把 旧版本删掉？
+    // 安装完之后为什么还要将 this.packageVersion 更新为最新版本？因为之后可能会在获取文件路径时使用到 packageVersion: cacheFilePath、getSpecificFilePath
   }
 
   // 获取 package 入口文件的路径

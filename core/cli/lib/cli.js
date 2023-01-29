@@ -104,6 +104,16 @@ function registryCommands() {
     )
     .hook("preAction", (thisCommand, actionCommand) => {
       // 校验项目名称命名是否符合规范
+      if (
+        !/^[a-zA-Z]+([-][a-zA-Z][a-zA-Z0-9]*|[_][a-zA-Z][a-zA-Z0-9]*|[a-zA-Z0-9])*$/.test(
+          thisCommand.args[0]
+        )
+      ) {
+        log.error(
+          "项目名称不合法！合法字符为 'a-z' 'A-Z' '_' '-' 且只能以大小写字母开头"
+        );
+        process.exit();
+      }
     })
     .action(exec);
 
